@@ -1,7 +1,6 @@
 {
   description = "A basic flake with a shell";
-  # Follow system:
-  # inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.systems.url = "github:nix-systems/default";
   inputs.flake-utils = {
     url = "github:numtide/flake-utils";
@@ -13,13 +12,20 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
+        NODE_VERSION = "20";
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            bashInteractive 
+            deno
+
+            bashInteractive
           ];
+          shellHook = ''
+            # Assume installed: fnm
+            fnm use ${NODE_VERSION}
+          '';
         };
       }
     );
