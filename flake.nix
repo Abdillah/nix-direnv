@@ -59,7 +59,11 @@
           overlays.default = final: _prev: { nix-direnv = final.callPackage ./default.nix { }; };
           templates.default = {
             path = ./templates/flake;
-            description = "nix flake new -t github:nix-community/nix-direnv .";
+            description = "nix flake new -t github:Abdillah/nix-direnv .";
+          };
+          templates.javascript = {
+            path = ./templates/javascript;
+            description = "nix flake new -t github:Abdillah/nix-direnv#javascript .";
           };
         };
       }
